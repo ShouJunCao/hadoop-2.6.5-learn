@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_hadoop-2.6.5-learn" default="compile.module.hadoop-2.6.5-learn">
+  <dirname property="module.hadoop-2.6.5-learn.basedir" file="${ant.file.module_hadoop-2.6.5-learn}"/>
+  
+  <property name="module.jdk.home.hadoop-2.6.5-learn" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.hadoop-2.6.5-learn" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.hadoop-2.6.5-learn" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.hadoop-2.6.5-learn" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="hadoop-2.6.5-learn.output.dir" value="${module.hadoop-2.6.5-learn.basedir}/../out"/>
+  <property name="hadoop-2.6.5-learn.testoutput.dir" value="${module.hadoop-2.6.5-learn.basedir}/../test"/>
+  
+  <path id="hadoop-2.6.5-learn.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="hadoop-2.6.5-learn.module.production.classpath">
+    <path refid="${module.jdk.classpath.hadoop-2.6.5-learn}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="hadoop-2.6.5-learn.runtime.production.module.classpath">
+    <pathelement location="${hadoop-2.6.5-learn.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="hadoop-2.6.5-learn.module.classpath">
+    <path refid="${module.jdk.classpath.hadoop-2.6.5-learn}"/>
+    <pathelement location="${hadoop-2.6.5-learn.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="hadoop-2.6.5-learn.runtime.module.classpath">
+    <pathelement location="${hadoop-2.6.5-learn.testoutput.dir}"/>
+    <pathelement location="${hadoop-2.6.5-learn.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.hadoop-2.6.5-learn">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.hadoop-2.6.5-learn">
+    <patternset refid="excluded.from.module.hadoop-2.6.5-learn"/>
+  </patternset>
+  
+  <path id="hadoop-2.6.5-learn.module.sourcepath">
+    <dirset dir="${module.hadoop-2.6.5-learn.basedir}/../../hadoop-2.6.5-learn">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.hadoop-2.6.5-learn" depends="compile.module.hadoop-2.6.5-learn.production,compile.module.hadoop-2.6.5-learn.tests" description="Compile module hadoop-2.6.5-learn"/>
+  
+  <target name="compile.module.hadoop-2.6.5-learn.production" depends="register.custom.compilers" description="Compile module hadoop-2.6.5-learn; production classes">
+    <mkdir dir="${hadoop-2.6.5-learn.output.dir}"/>
+    <javac2 destdir="${hadoop-2.6.5-learn.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.hadoop-2.6.5-learn}/javac">
+      <compilerarg line="${compiler.args.hadoop-2.6.5-learn}"/>
+      <bootclasspath refid="hadoop-2.6.5-learn.module.bootclasspath"/>
+      <classpath refid="hadoop-2.6.5-learn.module.production.classpath"/>
+      <src refid="hadoop-2.6.5-learn.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.hadoop-2.6.5-learn"/>
+    </javac2>
+    
+    <copy todir="${hadoop-2.6.5-learn.output.dir}">
+      <fileset dir="${module.hadoop-2.6.5-learn.basedir}/../src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.hadoop-2.6.5-learn.tests" depends="register.custom.compilers,compile.module.hadoop-2.6.5-learn.production" description="compile module hadoop-2.6.5-learn; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.hadoop-2.6.5-learn" description="cleanup module">
+    <delete dir="${hadoop-2.6.5-learn.output.dir}"/>
+    <delete dir="${hadoop-2.6.5-learn.testoutput.dir}"/>
+  </target>
+</project>
