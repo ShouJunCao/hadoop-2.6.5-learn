@@ -13,9 +13,7 @@ import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
-import java.io.IOException;
-
-import static com.sun.scenario.Settings.set;
+import java.net.URI;
 
 /**
  * <p></p>
@@ -32,23 +30,29 @@ import static com.sun.scenario.Settings.set;
  */
 public class HaHdfsUtils {
 
-    private static final String CLUSTER_NAME = "ns";
-
-    private static final String HADOOP_URL = "hdfs://"+CLUSTER_NAME;
+    private static final String HADOOP_USER_NAME="root";
 
     public static Configuration cfg;
 
+    public static URI uri;
+
     static {
-        System.setProperty("hadoop.home.dir", "E:\\Hadoop\\hadoop-2.6.5");
+        //System.setProperty("hadoop.home.dir", "E:\\Hadoop\\hadoop-2.6.5");
         cfg = new Configuration();
-        cfg.set("fs.defaultFS", HADOOP_URL);
-        cfg.set("dfs.nameservices", CLUSTER_NAME);
-        cfg.set("dfs.namenodes."+CLUSTER_NAME,"nn1,nn2");
-        cfg.set("dfs.namenode.rpc-address."+CLUSTER_NAME+".nn1","node1:9000");
-        cfg.set("dfs.namenode.rpc-address."+CLUSTER_NAME+".nn2","node2:9000");
-        cfg.set("dfs.client.failover.proxy.provider."+CLUSTER_NAME,"org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider");
-            set("dfs.client.failover.proxy.provider."+CLUSTER_NAME,"org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider");
+        cfg.set("fs.defaultFS", "hdfs://ns");
+        cfg.set("dfs.nameservices", "ns");
+        cfg.set("dfs.ha.namenodes.ns","nn1,nn2");
+        cfg.set("dfs.namenode.rpc-address.ns.nn1","node1:9000");
+        cfg.set("dfs.namenode.rpc-address.ns.nn2","node2:9000");
+        cfg.set("dfs.client.failover.proxy.provider.ns","org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider");
+
+        try {
+            uri = new URI( "hdfs://ns");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
 
     /**
      * 创建目录
@@ -58,9 +62,9 @@ public class HaHdfsUtils {
     public static boolean createHdfsPath(String path){
         boolean result;
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             result = fileSystem.mkdirs(new Path(path));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -75,9 +79,9 @@ public class HaHdfsUtils {
     public static boolean exitHdfsPath(String path){
         boolean result;
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(new URI("hdfs://ns"), cfg, HADOOP_USER_NAME);
             result = fileSystem.exists(new Path(path));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -92,10 +96,10 @@ public class HaHdfsUtils {
     public static boolean deleteHdfsPath(String path){
         boolean result;
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             //删除文件或者文件夹，是否进行递归删除
             result = fileSystem.delete(new Path(path),false);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -111,9 +115,9 @@ public class HaHdfsUtils {
     public static boolean createHdfsFile(String path){
         boolean result;
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(new URI("hdfs://ns"), cfg, HADOOP_USER_NAME);
             result = fileSystem.createNewFile(new Path(path));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -128,9 +132,9 @@ public class HaHdfsUtils {
      */
     public static boolean copyFromLocalFile(String localPath, String remotePath){
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             fileSystem.copyFromLocalFile(new Path(localPath), new Path(remotePath));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -145,9 +149,9 @@ public class HaHdfsUtils {
      */
     public static boolean copyToLocalFile(String remotePath, String localPath){
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             fileSystem.copyToLocalFile(new Path(remotePath),new Path(localPath));
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -162,7 +166,7 @@ public class HaHdfsUtils {
      */
     public static boolean getHdfsFile(String remotePath){
         try {
-            FileSystem fileSystem = FileSystem.get(cfg);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             FileStatus[] fileStatuses = fileSystem.listStatus(new Path(remotePath));
             for(FileStatus status: fileStatuses){
                 System.out.println(status.getPath());
@@ -171,11 +175,33 @@ public class HaHdfsUtils {
                 System.out.println(status.getPermission());
                 System.out.println("******************************");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
+
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        conf.set("fs.defaultFS", "hdfs://ns");
+        conf.set("dfs.nameservices", "ns");
+        conf.set("dfs.ha.namenodes.ns", "nn1,nn2");
+        conf.set("dfs.namenode.rpc-address.ns.nn1", "node1:9000");
+        conf.set("dfs.namenode.rpc-address.ns.nn2", "node2:9000");
+        //conf.setBoolean(name, value);
+        conf.set("dfs.client.failover.proxy.provider.ns", "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider");
+
+        FileSystem fs = FileSystem.get(new URI("hdfs://ns"), conf, "root");
+        boolean result = fs.exists(new Path("/hello/oem8.log"));
+        System.out.println(result);
+        /*InputStream in =new FileInputStream("c://oem8.log");
+        OutputStream out = fs.create(new Path("/hello/oem8.log"));
+        IOUtils.copyBytes(in, out, 4096, true);*/
+
+        exitHdfsPath("/hello/oem8.log");
+    }
+
+
 
 }

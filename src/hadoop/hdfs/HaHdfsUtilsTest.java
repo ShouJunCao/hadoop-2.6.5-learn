@@ -26,8 +26,49 @@ import org.junit.Test;
 public class HaHdfsUtilsTest {
 
     @Test
-    public void test(){
-        HaHdfsUtils.createHdfsPath("haha");
+    public void createHdfsPath(){
+        boolean result = HaHdfsUtils.createHdfsPath("/haha");
+        System.out.println(result);
     }
+
+    @Test
+    public void exitHdfsPath(){
+        boolean result = HaHdfsUtils.exitHdfsPath("/haha");
+        System.out.println(result);
+    }
+
+    @Test
+    public void deleteHdfsPath(){
+        boolean result = HaHdfsUtils.deleteHdfsPath("/haha");
+        System.out.println(result);
+    }
+
+
+    @Test
+    public void createHdfsFile(){
+        boolean result = HaHdfsUtils.createHdfsFile("/hello/hello.txt");
+        System.out.println(result);
+    }
+
+
+    @Test
+    public void copyFromLocalFile(){
+        boolean result = HaHdfsUtils.copyFromLocalFile("E:\\hadoop-learn-java.jar","/hello/hadoop-learn-java.jar");
+        System.out.println(result);
+    }
+
+
+    @Test
+    public void copyToLocalFile(){
+        boolean result = HaHdfsUtils.copyToLocalFile("/hello/hello.txt","E:\\hello.txt");
+        System.out.println(result);
+    }
+
+    @Test
+    public void getHdfsFile(){
+        boolean result = HaHdfsUtils.getHdfsFile("/hello/hadoop-learn-java.jar");
+        System.out.println(result);
+    }
+
 
 }
