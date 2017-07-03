@@ -39,7 +39,7 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void deleteHdfsPath(){
-        boolean result = HaHdfsUtils.deleteHdfsPath("/haha");
+        boolean result = HaHdfsUtils.deleteHdfsPath("/hello/worldCountResult.txt");
         System.out.println(result);
     }
 
@@ -53,7 +53,7 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void copyFromLocalFile(){
-        boolean result = HaHdfsUtils.copyFromLocalFile("E:\\hadoop-learn-java.jar","/hello/hadoop-learn-java.jar");
+        boolean result = HaHdfsUtils.copyFromLocalFile("D:\\worldCount.txt","/hello/worldCount.txt");
         System.out.println(result);
     }
 
@@ -66,7 +66,7 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void getHdfsFile(){
-        boolean result = HaHdfsUtils.getHdfsFile("/hello/hadoop-learn-java.jar");
+        boolean result = HaHdfsUtils.getHdfsFile("/hello/worldCount.txt");
         System.out.println(result);
     }
 
