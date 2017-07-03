@@ -34,6 +34,7 @@ public class WordCount {
 
   public static class TokenizerMapper 
        extends Mapper<Object, Text, Text, IntWritable>{
+
     
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
