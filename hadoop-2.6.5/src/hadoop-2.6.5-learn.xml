@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hadoop-2.6.5-learn" default="all">
+  
+  
+  <property file="hadoop-2.6.5-learn.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.ane"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.lib.classpath">
+    <pathelement location="${basedir}/lib/activation-1.1.jar"/>
+    <pathelement location="${basedir}/lib/aopalliance-1.0.jar"/>
+    <pathelement location="${basedir}/lib/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${basedir}/lib/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${basedir}/lib/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${basedir}/lib/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${basedir}/lib/asm-3.2.jar"/>
+    <pathelement location="${basedir}/lib/avro-1.7.4.jar"/>
+    <pathelement location="${basedir}/lib/aws-java-sdk-1.7.4.jar"/>
+    <pathelement location="${basedir}/lib/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${basedir}/lib/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${basedir}/lib/commons-cli-1.2.jar"/>
+    <pathelement location="${basedir}/lib/commons-codec-1.4.jar"/>
+    <pathelement location="${basedir}/lib/commons-collections-3.2.2.jar"/>
+    <pathelement location="${basedir}/lib/commons-compress-1.4.1.jar"/>
+    <pathelement location="${basedir}/lib/commons-configuration-1.6.jar"/>
+    <pathelement location="${basedir}/lib/commons-daemon-1.0.13.jar"/>
+    <pathelement location="${basedir}/lib/commons-digester-1.8.jar"/>
+    <pathelement location="${basedir}/lib/commons-el-1.0.jar"/>
+    <pathelement location="${basedir}/lib/commons-httpclient-3.1.jar"/>
+    <pathelement location="${basedir}/lib/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/lib/commons-lang-2.6.jar"/>
+    <pathelement location="${basedir}/lib/commons-logging-1.1.3.jar"/>
+    <pathelement location="${basedir}/lib/commons-math3-3.1.1.jar"/>
+    <pathelement location="${basedir}/lib/commons-net-3.1.jar"/>
+    <pathelement location="${basedir}/lib/curator-client-2.6.0.jar"/>
+    <pathelement location="${basedir}/lib/curator-framework-2.6.0.jar"/>
+    <pathelement location="${basedir}/lib/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${basedir}/lib/gson-2.2.4.jar"/>
+    <pathelement location="${basedir}/lib/guava-11.0.2.jar"/>
+    <pathelement location="${basedir}/lib/guice-3.0.jar"/>
+    <pathelement location="${basedir}/lib/guice-servlet-3.0.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-annotations-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-ant-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-archives-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-auth-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-aws-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-common-2.6.5-tests.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-common-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-datajoin-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-distcp-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-extras-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-gridmix-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-hdfs-2.6.5-tests.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-hdfs-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-hdfs-nfs-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-app-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-common-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-core-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-hs-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-hs-plugins-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-jobclient-2.6.5-tests.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-jobclient-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-client-shuffle-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-mapreduce-examples-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-nfs-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-openstack-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-rumen-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-sls-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-streaming-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-api-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-applications-distributedshell-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-applications-unmanaged-am-launcher-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-client-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-common-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-registry-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-server-applicationhistoryservice-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-server-common-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-server-nodemanager-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-server-resourcemanager-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-server-tests-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hadoop-yarn-server-web-proxy-2.6.5.jar"/>
+    <pathelement location="${basedir}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${basedir}/lib/htrace-core-3.0.4.jar"/>
+    <pathelement location="${basedir}/lib/httpclient-4.2.5.jar"/>
+    <pathelement location="${basedir}/lib/httpcore-4.2.5.jar"/>
+    <pathelement location="${basedir}/lib/jackson-annotations-2.2.3.jar"/>
+    <pathelement location="${basedir}/lib/jackson-core-2.2.3.jar"/>
+    <pathelement location="${basedir}/lib/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${basedir}/lib/jackson-databind-2.2.3.jar"/>
+    <pathelement location="${basedir}/lib/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${basedir}/lib/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${basedir}/lib/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${basedir}/lib/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${basedir}/lib/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${basedir}/lib/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${basedir}/lib/javax.inject-1.jar"/>
+    <pathelement location="${basedir}/lib/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${basedir}/lib/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${basedir}/lib/jersey-client-1.9.jar"/>
+    <pathelement location="${basedir}/lib/jersey-core-1.9.jar"/>
+    <pathelement location="${basedir}/lib/jersey-guice-1.9.jar"/>
+    <pathelement location="${basedir}/lib/jersey-json-1.9.jar"/>
+    <pathelement location="${basedir}/lib/jersey-server-1.9.jar"/>
+    <pathelement location="${basedir}/lib/jets3t-0.9.0.jar"/>
+    <pathelement location="${basedir}/lib/jettison-1.1.jar"/>
+    <pathelement location="${basedir}/lib/jetty-6.1.26.jar"/>
+    <pathelement location="${basedir}/lib/jetty-util-6.1.26.jar"/>
+    <pathelement location="${basedir}/lib/jline-0.9.94.jar"/>
+    <pathelement location="${basedir}/lib/joda-time-2.9.4.jar"/>
+    <pathelement location="${basedir}/lib/jsch-0.1.42.jar"/>
+    <pathelement location="${basedir}/lib/jsp-api-2.1.jar"/>
+    <pathelement location="${basedir}/lib/jsr305-1.3.9.jar"/>
+    <pathelement location="${basedir}/lib/junit-4.11.jar"/>
+    <pathelement location="${basedir}/lib/leveldbjni-all-1.8.jar"/>
+    <pathelement location="${basedir}/lib/log4j-1.2.17.jar"/>
+    <pathelement location="${basedir}/lib/metrics-core-3.0.1.jar"/>
+    <pathelement location="${basedir}/lib/mockito-all-1.8.5.jar"/>
+    <pathelement location="${basedir}/lib/netty-3.6.2.Final.jar"/>
+    <pathelement location="${basedir}/lib/paranamer-2.3.jar"/>
+    <pathelement location="${basedir}/lib/protobuf-java-2.5.0.jar"/>
+    <pathelement location="${basedir}/lib/servlet-api-2.5.jar"/>
+    <pathelement location="${basedir}/lib/slf4j-api-1.7.5.jar"/>
+    <pathelement location="${basedir}/lib/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${basedir}/lib/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${basedir}/lib/stax-api-1.0-2.jar"/>
+    <pathelement location="${basedir}/lib/xercesImpl-2.9.1.jar"/>
+    <pathelement location="${basedir}/lib/xml-apis-1.3.04.jar"/>
+    <pathelement location="${basedir}/lib/xmlenc-0.52.jar"/>
+    <pathelement location="${basedir}/lib/xz-1.0.jar"/>
+    <pathelement location="${basedir}/lib/zookeeper-3.4.6.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/.idea/module_hadoop-2.6.5-learn.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.hadoop-2.6.5-learn" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.hadoop-2.6.5-learn" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
