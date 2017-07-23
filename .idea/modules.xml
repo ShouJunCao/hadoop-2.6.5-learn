@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/hadoop-2.6.5/hadoop-2.6.5.iml" filepath="$PROJECT_DIR$/hadoop-2.6.5/hadoop-2.6.5.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/hadoop-learn.iml" filepath="$PROJECT_DIR$/.idea/hadoop-learn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hbase-1.3.1/hbase-1.3.1.iml" filepath="$PROJECT_DIR$/hbase-1.3.1/hbase-1.3.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/hive-2.1.1/hive.iml" filepath="$PROJECT_DIR$/hive-2.1.1/hive.iml" />
       <module fileurl="file://$PROJECT_DIR$/hive-2.1.1/hive-2.1.1.iml" filepath="$PROJECT_DIR$/hive-2.1.1/hive-2.1.1.iml" />
     </modules>
