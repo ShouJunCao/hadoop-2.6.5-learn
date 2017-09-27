@@ -66,7 +66,7 @@ public class WordCount {
   }
 
   public static void main(String[] args) throws Exception {
-    System.setProperty("hadoop.home.dir", "E:\\Hadoop\\hadoop-2.6.5");
+    //System.setProperty("hadoop.home.dir", "E:\\Hadoop\\hadoop-2.6.5");
     final String input_path = "/hello/worldCount.txt";
     final String out_path = "/hello/worldCountResult.txt";
     Configuration cfg = new Configuration();
@@ -76,7 +76,7 @@ public class WordCount {
     cfg.set("dfs.namenode.rpc-address.ns.nn1","node1:9000");
     cfg.set("dfs.namenode.rpc-address.ns.nn2","node2:9000");
     cfg.set("dfs.client.failover.proxy.provider.ns","org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider");
-    cfg.set("mapred.jar","F:\\hadoop_2_6_5_learn_jar\\hadoop-2.6.5-learn.jar");
+    //cfg.set("mapred.jar","F:\\hadoop_2_6_5_learn_jar\\hadoop-2.6.5-learn.jar");
 
     Job job = Job.getInstance(cfg, "word count");
     job.setJarByClass(WordCount.class);

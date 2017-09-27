@@ -27,19 +27,19 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void createHdfsPath(){
-        boolean result = HaHdfsUtils.createHdfsPath("/haha");
+        boolean result = HaHdfsUtils.createHdfsPath("/hello/qqRecommendInput");
         System.out.println(result);
     }
 
     @Test
     public void exitHdfsPath(){
-        boolean result = HaHdfsUtils.exitHdfsPath("/haha");
+        boolean result = HaHdfsUtils.exitHdfsPath("/hello/qqRecommendInput");
         System.out.println(result);
     }
 
     @Test
     public void deleteHdfsPath(){
-        boolean result = HaHdfsUtils.deleteHdfsPath("/hello/worldCountResult.txt");
+        boolean result = HaHdfsUtils.deleteHdfsPath("/hello/worldCountResult");
         System.out.println(result);
     }
 
@@ -53,7 +53,7 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void copyFromLocalFile(){
-        boolean result = HaHdfsUtils.copyFromLocalFile("D:\\worldCount.txt","/hello/worldCount.txt");
+        boolean result = HaHdfsUtils.copyFromLocalFile("/Users/shoujun/qqNames.txt","/hello/qqRecommendInput/qqNames.txt");
         System.out.println(result);
     }
 

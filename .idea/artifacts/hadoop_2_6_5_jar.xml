@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="hadoop-2.6.5-learn:jar">
-    <output-path>$USER_HOME$/学习资料/HadoopFile</output-path>
-    <root id="archive" name="hadoop-2.6.5-learn.jar">
-      <element id="module-output" name="hadoop-learn" />
+  <artifact type="jar" build-on-make="true" name="hadoop-2.6.5:jar">
+    <output-path>$USER_HOME$</output-path>
+    <root id="archive" name="hadoop-2.6.5.jar">
+      <element id="module-output" name="hadoop-2.6.5" />
       <element id="extracted-dir" path="$PROJECT_DIR$/hadoop-2.6.5/lib/activation-1.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/hadoop-2.6.5/lib/aopalliance-1.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/hadoop-2.6.5/lib/apacheds-i18n-2.0.0-M15.jar" path-in-jar="/" />
