@@ -27,13 +27,13 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void createHdfsPath(){
-        boolean result = HaHdfsUtils.createHdfsPath("/hello/qqRecommendInput");
+        boolean result = HaHdfsUtils.createHdfsPath("/hello/hotInput");
         System.out.println(result);
     }
 
     @Test
     public void exitHdfsPath(){
-        boolean result = HaHdfsUtils.exitHdfsPath("/hello/qqRecommendInput");
+        boolean result = HaHdfsUtils.exitHdfsPath("/hello/hotInput");
         System.out.println(result);
     }
 
@@ -46,14 +46,14 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void createHdfsFile(){
-        boolean result = HaHdfsUtils.createHdfsFile("/hello/hello.txt");
+        boolean result = HaHdfsUtils.createHdfsFile("/hello/hotInput/data");
         System.out.println(result);
     }
 
 
     @Test
     public void copyFromLocalFile(){
-        boolean result = HaHdfsUtils.copyFromLocalFile("/Users/shoujun/qqNames.txt","/hello/qqRecommendInput/qqNames.txt");
+        boolean result = HaHdfsUtils.copyFromLocalFile("/Users/shoujun/data","/hello/hotInput/data");
         System.out.println(result);
     }
 
