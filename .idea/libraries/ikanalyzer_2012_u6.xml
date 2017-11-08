@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ikanalyzer-2012_u6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/hadoop-2.6.5/lib/ikanalyzer-2012_u6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -27,7 +27,7 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void createHdfsPath(){
-        boolean result = HaHdfsUtils.createHdfsPath("/hello/hotInput");
+        boolean result = HaHdfsUtils.createHdfsPath("/hello/weiboInput");
         System.out.println(result);
     }
 
@@ -53,7 +53,7 @@ public class HaHdfsUtilsTest {
 
     @Test
     public void copyFromLocalFile(){
-        boolean result = HaHdfsUtils.copyFromLocalFile("/Users/shoujun/data","/hello/hotInput/data");
+        boolean result = HaHdfsUtils.copyFromLocalFile("/Users/shoujun/weibo.txt","/hello/weiboInput/weibo.txt");
         System.out.println(result);
     }
 

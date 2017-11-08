@@ -1,6 +1,5 @@
 package com.shoujun.learn.weibo;
 
-import com.shoujun.learn.yearhot.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -13,13 +12,13 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.net.URI;
 
 /**
- * Created by shoujun on 2017/11/6.
+ * Created by shoujun on 2017/11/7.
  */
-public class FirstJob {
+public class ThirdJob {
 
     public static void main(String[] args) {
-        String inputPath = "/hello/weiboInput/weibo.txt";
-        String outPath = "/hello/weiboOut1";
+        String inputPath = "/hello/weiboOut1";
+        String outPath = "/hello/weiboOut3";
 
         Configuration cfg = new Configuration();
         cfg.set("fs.defaultFS", "hdfs://ns");
@@ -35,24 +34,28 @@ public class FirstJob {
             if(fileSystem.exists(new Path(outPath))){
                 fileSystem.delete(new Path(outPath), true);
             }
-            Job job = Job.getInstance(cfg, "first");
+            Job job = Job.getInstance(cfg, "third");
 
-            job.setJarByClass(FirstJob.class);
-            job.setMapperClass(FirstMapper.class);
-            job.setReducerClass(FirstReducer.class);
+            job.setJarByClass(ThirdJob.class);
+            job.setMapperClass(ThirdMapper.class);
+            job.setReducerClass(ThirdReducer.class);
+
+            //把微博总数加载到内存
+            job.addCacheFile(new Path("/hello/weiboOut1/part-r-00003").toUri());
+            //把df加载到内存
+            job.addCacheFile(new Path("/hello/weiboOut2/part-r-00000").toUri());
 
             job.setMapOutputKeyClass(Text.class);
-            job.setMapOutputValueClass(IntWritable.class);
+            job.setMapOutputValueClass(Text.class);
 
-            //TODO
-            job.setCombinerClass(FirstReducer.class);
-            job.setPartitionerClass(FirstPatition.class);
-
-            job.setNumReduceTasks(4);
 
             FileInputFormat.addInputPath(job, new Path(inputPath));
             FileOutputFormat.setOutputPath(job, new Path(outPath));
-            System.exit(job.waitForCompletion(true)? 0 : 1);
+
+            boolean waitForCompletion  = job.waitForCompletion(true);
+            if (waitForCompletion){
+                System.out.println("执行job成功");
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

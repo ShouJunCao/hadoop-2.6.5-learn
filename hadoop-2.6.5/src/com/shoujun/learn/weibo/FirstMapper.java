@@ -13,8 +13,17 @@ import java.io.StringReader;
 /**
  * Created by shoujun on 2017/11/6.
  */
+//第一个map计算TF 和 总数N
 public class FirstMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
+    /**
+     * TF 在一个文章中出现的词频 N总共多少文章
+     * @param key
+     * @param value
+     * @param context
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String line = value.toString();

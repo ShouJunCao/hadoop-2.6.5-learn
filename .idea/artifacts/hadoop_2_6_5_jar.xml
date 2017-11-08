@@ -124,6 +124,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/hadoop-2.6.5/lib/xmlenc-0.52.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/hadoop-2.6.5/lib/xz-1.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/hadoop-2.6.5/lib/zookeeper-3.4.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/ikanalyzer-2012_u6.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

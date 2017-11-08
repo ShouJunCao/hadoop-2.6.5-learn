@@ -9,6 +9,13 @@ import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
  */
 public class FirstPatition extends HashPartitioner<Text, IntWritable> {
 
+    /**
+     * 决定分区 N一个分区，tf三个分区，总共四个分区
+     * @param key
+     * @param value
+     * @param numReduceTasks
+     * @return
+     */
     @Override
     public int getPartition(Text key, IntWritable value, int numReduceTasks) {
         if(key.equals(new Text("count"))){

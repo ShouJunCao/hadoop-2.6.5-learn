@@ -1,6 +1,5 @@
 package com.shoujun.learn.weibo;
 
-import com.shoujun.learn.yearhot.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -13,13 +12,13 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.net.URI;
 
 /**
- * Created by shoujun on 2017/11/6.
+ * Created by shoujun on 2017/11/7.
  */
-public class FirstJob {
+public class SecondJob {
 
     public static void main(String[] args) {
-        String inputPath = "/hello/weiboInput/weibo.txt";
-        String outPath = "/hello/weiboOut1";
+        String inputPath = "/hello/weiboOut1";
+        String outPath = "/hello/weiboOut2";
 
         Configuration cfg = new Configuration();
         cfg.set("fs.defaultFS", "hdfs://ns");
@@ -35,20 +34,18 @@ public class FirstJob {
             if(fileSystem.exists(new Path(outPath))){
                 fileSystem.delete(new Path(outPath), true);
             }
-            Job job = Job.getInstance(cfg, "first");
+            Job job = Job.getInstance(cfg, "second");
 
-            job.setJarByClass(FirstJob.class);
-            job.setMapperClass(FirstMapper.class);
-            job.setReducerClass(FirstReducer.class);
+            job.setJarByClass(SecondJob.class);
+            job.setMapperClass(SecondMapper.class);
+            job.setReducerClass(SecondReducer.class);
 
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(IntWritable.class);
 
-            //TODO
-            job.setCombinerClass(FirstReducer.class);
-            job.setPartitionerClass(FirstPatition.class);
+            job.setCombinerClass(SecondReducer.class);
 
-            job.setNumReduceTasks(4);
+            job.setNumReduceTasks(1);
 
             FileInputFormat.addInputPath(job, new Path(inputPath));
             FileOutputFormat.setOutputPath(job, new Path(outPath));
