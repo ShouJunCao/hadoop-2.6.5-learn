@@ -1,6 +1,5 @@
 package com.shoujun.learn.weibo;
 
-import com.shoujun.learn.yearhot.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -44,8 +43,9 @@ public class FirstJob {
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(IntWritable.class);
 
-            //TODO
+            //设置reduce操作之前进行本地数据的压缩，可以直接使用reducer类也可以自定义一个combiner类，combiner类的的书写类似reducer
             job.setCombinerClass(FirstReducer.class);
+            //设置结果集数据放到不同的分区上，也就是放在hdfs不同的文件上
             job.setPartitionerClass(FirstPatition.class);
 
             job.setNumReduceTasks(4);

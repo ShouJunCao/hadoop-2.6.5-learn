@@ -4,19 +4,12 @@ package com.shoujun.learn.yearhot;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import java.io.IOException;
 import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by shoujun on 2017/10/29.
@@ -50,10 +43,13 @@ public class HotRunJob{
             job.setMapOutputKeyClass(HotKey.class);
             job.setMapOutputValueClass(Text.class);
 
+            //设定自定义排序类
             job.setSortComparatorClass(HotSort.class);
+            //设定定义分区类
             job.setPartitionerClass(HotPartition.class);
+            //设定定义分组类
             job.setGroupingComparatorClass(HotGroup.class);
-
+            //设定任务数量
             job.setNumReduceTasks(3);
 
             FileInputFormat.addInputPath(job, new Path(inputPath));
@@ -64,41 +60,4 @@ public class HotRunJob{
         }
     }
 }
-
- class HotMapper extends Mapper<LongWritable, Text, HotKey, Text> {
-
-    private  static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
-     @Override
-     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-         String line = value.toString();
-         String[] ss = line.split("  ");
-         if(ss.length == 2){
-             try {
-                 Date date = SDF.parse(ss[0]);
-                 Calendar c = Calendar.getInstance();
-                 c.setTime(date);
-                 int year = c.get(1);
-                 int hot = Integer.parseInt(ss[1].substring(0, ss[1].indexOf("°C")));
-
-                 HotKey hotKey = new HotKey();
-                 hotKey.setYear(year);
-                 hotKey.setHot(hot);
-
-                 context.write(hotKey, value);
-             } catch (Exception e) {
-                 e.printStackTrace();
-             }
-         }
-     }
- }
-
- class HotReducer extends Reducer<HotKey, Text, HotKey, Text>{
-
-     @Override
-     protected void reduce(HotKey key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-         for (Text value : values) {
-             context.write(key, value);
-         }
-     }
- }
 

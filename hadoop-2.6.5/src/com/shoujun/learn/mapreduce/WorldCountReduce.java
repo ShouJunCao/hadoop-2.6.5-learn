@@ -29,6 +29,7 @@ import java.io.IOException;
  */
 public class WorldCountReduce extends Reducer<Text, IntWritable, Text, IntWritable> {
 
+    @Override
     protected void reduce(Text key, Iterable<IntWritable> iterable, Context context)throws IOException, InterruptedException{
         int sum = 0;
         for (IntWritable i : iterable){

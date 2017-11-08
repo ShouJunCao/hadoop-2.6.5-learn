@@ -33,8 +33,8 @@ public class SecondMapper extends Mapper<LongWritable, Text, Text, IntWritable> 
             if(values.length>=2){
                 String[] split = values[0].split("_");
                 if(split.length>=2){
-                    String id = split[0];
-                    context.write(new Text(id), new IntWritable(1));
+                    String world = split[0];
+                    context.write(new Text(world), new IntWritable(1));
                 }
             }
         }else {

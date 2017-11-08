@@ -29,16 +29,19 @@ public class FirstMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         String line = value.toString();
         String[] kw = line.split("\t");
         if(kw.length >= 2){
-            String k = kw[0];
+            String id = kw[0];
             String w = kw[1];
 
             StringReader stringReader = new StringReader(w);
+            //对读入的内容进行分词处理，利用iK分词器
             IKSegmenter ikSegmenter = new IKSegmenter(stringReader, true);
             Lexeme word = null;
             while ((word = ikSegmenter.next()) != null){
                 String wordValue = word.getLexemeText();
-                context.write(new Text(wordValue + "_" + k), new IntWritable(1));
+
+                context.write(new Text(wordValue + "_" + id), new IntWritable(1));
             }
+            //一个mapper中可以有多向输出
             context.write(new Text("count"), new IntWritable(1));
 
         }else {

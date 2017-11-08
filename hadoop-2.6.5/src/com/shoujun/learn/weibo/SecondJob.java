@@ -17,7 +17,8 @@ import java.net.URI;
 public class SecondJob {
 
     public static void main(String[] args) {
-        String inputPath = "/hello/weiboOut1";
+        //第二次进行MapReduce时，第一次的MapReduce结果作为第二次的输入
+        String inputPath = "/hello/weiboOut1"; //weiboOut1是一个文件夹，则进行map的时候回读取当前文件夹下除了_SUCCESS之外的所有文件进行分析处理
         String outPath = "/hello/weiboOut2";
 
         Configuration cfg = new Configuration();

@@ -79,7 +79,7 @@ public class HaHdfsUtils {
     public static boolean exitHdfsPath(String path){
         boolean result;
         try {
-            FileSystem fileSystem = FileSystem.get(new URI("hdfs://ns"), cfg, HADOOP_USER_NAME);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             result = fileSystem.exists(new Path(path));
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,7 +115,7 @@ public class HaHdfsUtils {
     public static boolean createHdfsFile(String path){
         boolean result;
         try {
-            FileSystem fileSystem = FileSystem.get(new URI("hdfs://ns"), cfg, HADOOP_USER_NAME);
+            FileSystem fileSystem = FileSystem.get(uri, cfg, HADOOP_USER_NAME);
             result = fileSystem.createNewFile(new Path(path));
         } catch (Exception e) {
             e.printStackTrace();
