@@ -67,8 +67,21 @@ public class UserRoadReduce extends Reducer<Text, Text, NullWritable, Text> {
             Date tmp = this.simpleDateFormat.parse(date+" "+timeFlag.split("-")[1]+":00:00");
             uploads.put(tmp.getTime()/1000L, "OFF");
             HashMap<String,Float> locs = getStayTime(uploads);
+            for(Map.Entry<String,Float> entry : locs.entrySet()){
+                StringBuilder sb = new StringBuilder();
+                sb.append(ismi);
+                sb.append("|");
+                sb.append(entry.getKey());
+                sb.append("|");
+                sb.append(timeFlag);
+                sb.append("|");
+                sb.append(entry.getValue());
+                sb.append("|");
+                context.write(NullWritable.get(),new Text(sb.toString()));
+            }
         }catch (ParseException e){
-
+            context.getCounter(UserRoadMapper.Counter.USERSKIP).increment(1);
+            return;
         }
 
     }
